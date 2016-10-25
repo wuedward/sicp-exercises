@@ -41,3 +41,6 @@ Exercise 1.4
 If b is positive then (+ a b) else (- a b)
 
 Exercise 1.5
+Answer by experimentation. In applicative order, like the scheme interpreter, the expression infinitely loops. In normal order, the expression should return 0.
+
+Exercise 1.6
