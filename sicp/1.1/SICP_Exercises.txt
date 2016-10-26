@@ -44,3 +44,32 @@ Exercise 1.5
 Answer by experimentation. In applicative order, like the scheme interpreter, the expression infinitely loops. In normal order, the expression should return 0.
 
 Exercise 1.6
+The new-if function will cause an infinite recursion since applicative ordering will cause the operands to new-if to be continuously evaluated.
+
+Exercise 1.7
+
+(define (square x) (* x x))
+
+(define (abs x)
+	(cond 	((< x 0) (-x))
+			(else x)))
+
+(define (average x y) (/ (+ x y) 2))
+
+(define (improve guess x) (average guess (/ x guess)))
+
+(define (good-enough? guess x) (< (abs (- (square guess) x)) 0.001))
+
+(define (sqrt-iter guess x)
+	(if (good-enough? guess x)
+		guess
+		(sqrt-iter (improve guess x) x)))
+
+(define (sqrt x) (sqrt-iter 1.0 x))
+
+For small numbers, the error that good-enough uses is fixed. For example using 0.0001 gives a result of 0.0323. The actual result is 0.01. On the other end, for large numbers, the limited precision prevents the difference of 0.001 being noticed. In my experimentation, using 10e15 causes an infinite loop. I could not find a case where the algorithm terminated early due to the 0.001 error being too small. I think the infinite looping might be caused by overflow, which is a potential limitation of the current good-enough? function. 
+
+(define (good-enough? guess x)
+	(< (abs (- (improve guess x) guess)) 0.001))
+
+The tolerance can be set for an arbitrary desired precision of decimal places.
