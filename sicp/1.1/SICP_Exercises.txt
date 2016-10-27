@@ -73,3 +73,11 @@ For small numbers, the error that good-enough uses is fixed. For example using 0
 	(< (abs (- (improve guess x) guess)) 0.001))
 
 The tolerance can be set for an arbitrary desired precision of decimal places.
+
+Exercise 1.8
+To implement cube root, we just have to change the improve function in the square root implementation.
+
+(define (improve guess x)
+	(/ 	(+ 	(* 2 guess) 
+			(/ x (square guess)))
+		3))
